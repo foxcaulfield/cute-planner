@@ -13,7 +13,11 @@ import {
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <Image style={styles.logoImage} />
+      <Image
+        style={styles.logoImage}
+        source={require("./assets/logo.png")}
+        resizeMode="stretch"
+      />
     </SafeAreaView>
   );
 }
@@ -27,5 +31,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  logoImage: {},
+
+  logoImage: {
+    alignSelf: "center",
+    width: "100%",
+  },
 });
