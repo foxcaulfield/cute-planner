@@ -57,6 +57,97 @@ export default function App() {
                   />
                 </View>
               </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  // height: 100,
+                  margin: 20,
+                  // padding: 50,
+                  // backgroundColor: "blue",
+                  justifyContent: "space-evenly",
+                  flexWrap: "wrap",
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#475c6c",
+                    width: 75,
+                    height: 75,
+                    borderRadius: 10,
+                    margin: 10,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text>Task</Text>
+                </View>
+                <View
+                  style={{
+                    backgroundColor: "#8a8583",
+                    width: 75,
+                    height: 75,
+                    borderRadius: 10,
+                    margin: 10,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text>Task</Text>
+                </View>
+                <View
+                  style={{
+                    backgroundColor: "#eed7a1",
+                    width: 75,
+                    height: 75,
+                    borderRadius: 10,
+                    margin: 10,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text>Task</Text>
+                </View>
+                <View
+                  style={{
+                    backgroundColor: "#f7efd2",
+                    width: 75,
+                    height: 75,
+                    borderRadius: 10,
+                    margin: 10,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text>Task</Text>
+                </View>
+              </View>
+              {/* <View
+                style={{
+                  flexDirection: "row",
+                  // height: 100,
+                  margin: 20,
+                  // padding: 40,
+                  // justifyContent: "space-evenly",
+                  flexWrap: "wrap",
+                  // backgroundColor: "blue",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#cd8b62",
+                    width: 75,
+                    height: 75,
+                    borderRadius: 10,
+                    margin: 10,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    alignSelf: "baseline",
+                  }}
+                >
+                  <Text>Task</Text>
+                </View>
+              </View> */}
             </View>
             <View style={styles.addTaskComponentWrapper}>
               <AddTaskComponent />
@@ -75,7 +166,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     alignItems: "center",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
   },
   header: {
     backgroundColor: "#dc953b",
@@ -91,8 +182,8 @@ const styles = StyleSheet.create({
     // backgroundColor: "greenyellow",
   },
   buttonsPanel: {
-    alignSelf: "stretch",
-    width: "100%",
+    // alignSelf: "stretch",
+    // width: "100%",
     flexDirection: "row",
   },
   buttonWrapper: {
@@ -103,7 +194,7 @@ const styles = StyleSheet.create({
   },
   addTaskComponentWrapper: {
     alignSelf: "stretch",
-    alignContent: "space-between",
+    // alignContent: "space-between",
   },
   logoImage: {},
 });

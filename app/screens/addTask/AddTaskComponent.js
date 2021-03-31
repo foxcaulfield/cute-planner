@@ -74,7 +74,7 @@ export default AddTaskComponent;
 const styles = StyleSheet.create({
   addTaskComponent: {
     flex: 1,
-    flexDirection: "column",
+    // flexDirection: "column",
     // backgroundColor: "dodgerblue",
     position: "absolute",
     bottom: 0,
@@ -94,12 +94,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     marginHorizontal: 7,
+    // backgroundColor: "black",
   },
   textIputContainer: {
     flex: 1,
     backgroundColor: "#e9eae8",
     // backgroundColor: "purple",
-    justifyContent: "center",
+    // justifyContent: "center",
     padding: 15,
   },
   textInput: {
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     marginBottom: 13,
   },
   addButtonWrapper: {
-    flexDirection: "column",
+    // flexDirection: "column",
     alignItems: "stretch",
     flex: 1,
   },
