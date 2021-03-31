@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,32 +8,49 @@ import {
   Platform,
   StatusBar,
   Image,
+  TouchableOpacity,
 } from "react-native";
+import WelcomeScreen from "./app/screens/WelcomeScreen";
+import { AddTaskComponent } from "./app/screens/addTask/AddTaskComponent";
 
 export default function App() {
+  // const [logoDisplay, setLogoDisplay] = useState(false);
+  // const handleMainScreenDisplay = function () {
+  //   setLogoDisplay(!true);
+  // };
+
   return (
+    // <WelcomeScreen />
     <SafeAreaView style={styles.container}>
-      <Image
-        style={styles.logoImage}
-        source={require("./assets/logo.png")}
-        resizeMode="stretch"
-      />
+      {/* <TouchableOpacity onPress={handleMainScreenDisplay}> */}
+      {/* {logoDisplay ? ( */}
+      <View style={styles.logo}>
+        <Image
+          style={styles.logoImage}
+          source={require("./app/assets/logo.png")}
+          // resizeMode="stretch"
+        />
+      </View>
+      {/* // ) : ( */}
+      <View>
+        {/* <Text>Planner</Text> */}
+        <AddTaskComponent />
+      </View>
+      {/* )} */}
+      {/* </TouchableOpacity> */}
     </SafeAreaView>
   );
 }
 
-const containerStyle = { backgroundColor: "orange" };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
-
   logoImage: {
-    alignSelf: "center",
-    width: "100%",
+    resizeMode: "contain",
   },
 });
