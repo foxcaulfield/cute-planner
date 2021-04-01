@@ -7,6 +7,7 @@ import {
   Text,
   Button,
   Alert,
+  Vibration,
 } from "react-native";
 
 export function AddTaskComponent() {
@@ -18,6 +19,8 @@ export function AddTaskComponent() {
   const [text, onChangeText] = React.useState("New task");
   const [number, onChangeNumber] = React.useState(null);
 
+  //Vibration
+  Vibration.vibrate([500]);
   return (
     <View style={styles.addTaskComponent}>
       <View style={styles.switchContainer}>
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
   addTaskComponent: {
     flex: 1,
     // flexDirection: "column",
-    // backgroundColor: "dodgerblue",
+    backgroundColor: "dodgerblue",
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -84,8 +87,8 @@ const styles = StyleSheet.create({
   switchContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "gray",
-    // backgroundColor: "green",
+    // backgroundColor: "gray",
+    backgroundColor: "green",
   },
   switch: {
     // transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }],
@@ -94,12 +97,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     marginHorizontal: 7,
-    // backgroundColor: "black",
+    backgroundColor: "black",
   },
   textIputContainer: {
     flex: 1,
-    backgroundColor: "#e9eae8",
-    // backgroundColor: "purple",
+    // backgroundColor: "#e9eae8",
+    backgroundColor: "purple",
     // justifyContent: "center",
     padding: 15,
   },

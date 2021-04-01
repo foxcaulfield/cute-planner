@@ -13,8 +13,26 @@ import {
 } from "react-native";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import { AddTaskComponent } from "./app/screens/addTask/AddTaskComponent";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export default function App() {
+  //datetime picker
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
+    hideDatePicker();
+  };
+
+  //welcomescreen
   const [welcomeScreen, setWelcomeScreenDisplay] = useState(true);
   const handleWelcomeScreenDisplay = function () {
     setWelcomeScreenDisplay(false);
@@ -56,6 +74,15 @@ export default function App() {
                     onPress={() => Alert.alert("Simple Button pressed")}
                   />
                 </View>
+              </View>
+              <View>
+                <Button title="Choose date" onPress={showDatePicker} />
+                <DateTimePickerModal
+                  isVisible={isDatePickerVisible}
+                  mode="date"
+                  onConfirm={handleConfirm}
+                  onCancel={hideDatePicker}
+                />
               </View>
               <View
                 style={{
@@ -162,24 +189,24 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#e9eae8",
-    // backgroundColor: "red",
+    // backgroundColor: "#e9eae8",
+    backgroundColor: "red",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     alignItems: "center",
     // justifyContent: "space-between",
   },
   header: {
-    backgroundColor: "#dc953b",
-    // backgroundColor: "orange",
+    // backgroundColor: "#dc953b",
+    backgroundColor: "orange",
   },
   body: {
     flex: 1,
-    // backgroundColor: "yellow",
+    backgroundColor: "yellow",
     width: "100%",
   },
   tasksDisplay: {
     flex: 1,
-    // backgroundColor: "greenyellow",
+    backgroundColor: "greenyellow",
   },
   buttonsPanel: {
     // alignSelf: "stretch",
