@@ -1,3 +1,7 @@
+//==============================================================
+//==============================================================
+//==============================================================
+//==============================================================
 import React, { useState } from "react";
 import {
   Text,
@@ -7,63 +11,127 @@ import {
   Platform,
   SafeAreaView,
   StatusBar,
+  TextInput,
 } from "react-native";
+import { DateTime } from "./app/components/DateTime";
+
+// import { Constants } from "expo";
+
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import DateTimePicker from "@react-native-community/datetimepicker";
-import { Constants } from "expo";
-
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-
-// import { NavigationContainer } from "@react-navigation/native";
-// import { createStackNavigator } from "@react-navigation/stack";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 
 console.log("------------------------------------------------------------");
 console.log(`Cute planner starting on ${Platform.OS}`);
 
 const platformOS = Platform.OS.toLowerCase();
 
-function HomeScreen() {
+// ==SCREENS==
+function DetailsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!!!</Text>
+      <Text>Details!</Text>
     </View>
   );
 }
 
-function SettingsScreen() {
+function DayScreen({ navigation, route }) {
+  // function DayScreen({ navigation }) {
+  //
+  //
+  React.useEffect(() => {
+    if (route.params?.post) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+    }
+  }, [route.params?.post]);
+  //
+  //
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-function NewTaskScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Add task here</Text>
-    </View>
-  );
-}
-function DayScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <DateTime></DateTime>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate("Details")}
+      />
+      <Button
+        title="Create post"
+        onPress={() => navigation.navigate("CreatePost")}
+      />
       <Text>Today and tommorow tasks here</Text>
+      <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
     </View>
   );
 }
 
-function WeekScreen() {
+//
+//
+function CreatePostScreen({ navigation, route }) {
+  const [postText, setPostText] = React.useState("");
+
+  return (
+    <>
+      <TextInput
+        multiline
+        placeholder="What's on your mind?"
+        style={{ height: 200, padding: 10, backgroundColor: "white" }}
+        value={postText}
+        onChangeText={setPostText}
+      />
+      <Button
+        title="Done"
+        onPress={() => {
+          // Pass params back to home screen
+          navigation.navigate("Day", { post: postText });
+        }}
+      />
+    </>
+  );
+}
+//
+//
+function WeekScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate("Details")}
+      />
       <Text>Week</Text>
     </View>
   );
 }
+//==SCREENS==
 
+//==STACK==
+const DayStack = createStackNavigator();
+
+function DayStackScreen() {
+  return (
+    <DayStack.Navigator>
+      {/* <DayStack.Screen name="Day" component={DayScreen} /> */}
+      <DayStack.Screen name="Day" component={DayScreen} />
+      <DayStack.Screen name="Details" component={DetailsScreen} />
+      <DayStack.Screen name="CreatePost" component={CreatePostScreen} />
+    </DayStack.Navigator>
+  );
+}
+
+const WeekStack = createStackNavigator();
+
+function WeekStackScreen() {
+  return (
+    <WeekStack.Navigator>
+      <WeekStack.Screen name="Week" component={WeekScreen} />
+      <WeekStack.Screen name="Details" component={DetailsScreen} />
+    </WeekStack.Navigator>
+  );
+}
+//==STACK==
+
+//==TAB==
 const Tab = createMaterialTopTabNavigator();
 
 export default function App() {
@@ -71,17 +139,18 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
         <Tab.Navigator>
-          {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
-          {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
-          <Tab.Screen name="Add" component={NewTaskScreen} />
-          <Tab.Screen name="Today" component={DayScreen} />
+          {/* <Tab.Screen name="Today" component={DayScreen} />
           <Tab.Screen name="Tommorrow" component={DayScreen} />
-          <Tab.Screen name="This week" component={WeekScreen} />
+          <Tab.Screen name="This week" component={WeekScreen} /> */}
+          <Tab.Screen name="Today" component={DayStackScreen} />
+          <Tab.Screen name="Tommorrow" component={DayStackScreen} />
+          <Tab.Screen name="This week" component={WeekStackScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaView>
   );
 }
+//==TAB==
 
 const styles = StyleSheet.create({
   container: {
@@ -92,161 +161,440 @@ const styles = StyleSheet.create({
   },
 });
 
-// function HomeScreen({ navigation }) {
+//==============================================================
+//==============================================================
+//==============================================================
+//==============================================================
 
-//   let date = Date();
-//   setInterval(
-//     () => timeNode.innerHTML = getCurrentTimeString(),
-//     1000
-//  );
+//==============================================================
+//==============================================================
+// import React, { useState } from "react";
+// import {
+//   Text,
+//   View,
+//   Button,
+//   StyleSheet,
+//   Platform,
+//   SafeAreaView,
+//   StatusBar,
+//   TextInput,
+// } from "react-native";
+// import { DateTime } from "./app/components/DateTime";
+
+// // import { Constants } from "expo";
+
+// // import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+// import { NavigationContainer } from "@react-navigation/native";
+// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+// import { createStackNavigator } from "@react-navigation/stack";
+
+// console.log("------------------------------------------------------------");
+// console.log(`Cute planner starting on ${Platform.OS}`);
+
+// const platformOS = Platform.OS.toLowerCase();
+
+// // ==SCREENS==
+// function DetailsScreen() {
 //   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       {/* <Text>Home Screen</Text> */}
-//       {/* <Button
-//         title="Go to Details"
-//         onPress={() => navigation.navigate("Details")}
-//       /> */}
-//       <View>
-//         <Text>{date}</Text>
-//       </View>
-//       <Button
-//         title="Add task"
-//         onPress={() => navigation.navigate("NewTaskScreen")}
-//       />
-//       <Button
-//         title="Day tasks"
-//         onPress={() => navigation.navigate("DayScreen")}
-//       />
-//       <Button
-//         title="Week tasks"
-//         onPress={() => navigation.navigate("WeekScreen")}
-//       />
-//     </View>
-//   );
-// }
-
-// // function DetailsScreen({ navigation }) {
-// //   return (
-// //     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-// //       <Text>Details Screen</Text>
-// //       <Button
-// //         title="Go to Details... again"
-// //         onPress={() => navigation.push("Details")}
-// //       />
-// //       <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-// //       <Button title="Go back" onPress={() => navigation.goBack()} />
-// //       <Button
-// //         title="Go back to first screen in stack"
-// //         onPress={() => navigation.popToTop()}
-// //       />
-// //     </View>
-// //   );
-// // }
-
-// function NewTaskScreen({ navigation }) {
-//   const [selectedDate, setSelectedDate] = useState("123");
-//   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-//   const showDatePicker = () => {
-//     setDatePickerVisibility(true);
-//   };
-
-//   const hideDatePicker = () => {
-//     setDatePickerVisibility(false);
-//   };
-
-//   const handleConfirm = (date) => {
-//     console.warn("A date has been picked: ", date);
-//     setSelectedDate(date.toString());
-//     hideDatePicker();
-//   };
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <View>
-//         <Text>{selectedDate}</Text>
-//         <Button title="Show Date Picker" onPress={showDatePicker} />
-//         <DateTimePickerModal
-//           isVisible={isDatePickerVisible}
-//           mode="date"
-//           onConfirm={handleConfirm}
-//           onCancel={hideDatePicker}
-//         />
-//       </View>
-//       <Text>New task screen.</Text>
-
-//       {/* <Button
-//         title="Go to Details... again"
-//         onPress={() => navigation.push("Details")}
-//       /> */}
-//       <Button
-//         title="Go to Home"
-//         onPress={() => navigation.navigate("HomeScreen")}
-//       />
-//       <Button title="Go back" onPress={() => navigation.goBack()} />
-//       {/* <Button
-//         title="Go back to first screen in stack"
-//         onPress={() => navigation.popToTop()}
-//       /> */}
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Details!</Text>
 //     </View>
 //   );
 // }
 
 // function DayScreen({ navigation }) {
+//   //
+//   //
+//   // React.useEffect(() => {
+//   //   if (route.params?.post) {
+//   //     // Post updated, do something with `route.params.post`
+//   //     // For example, send the post to the server
+//   //   }
+//   // }, [route.params?.post]);
+//   //
+//   //
 //   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <Text>Day tasks </Text>
-//       {/* <Button
-//         title="Go to Details... again"
-//         onPress={() => navigation.push("Details")}
-//       /> */}
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <DateTime></DateTime>
 //       <Button
-//         title="Go to Home"
-//         onPress={() => navigation.navigate("HomeScreen")}
+//         title="Go to Details"
+//         onPress={() => navigation.navigate("Details")}
 //       />
-//       <Button title="Go back" onPress={() => navigation.goBack()} />
-//       {/* <Button
-//         title="Go back to first screen in stack"
-//         onPress={() => navigation.popToTop()}
-//       /> */}
+//       <Text>Today and tommorow tasks here</Text>
 //     </View>
 //   );
 // }
 
+// //
+// //
+// // function CreatePostScreen({ navigation, route }) {
+// //   const [postText, setPostText] = React.useState('');
+
+// //   return (
+// //     <>
+// //       <TextInput
+// //         multiline
+// //         placeholder="What's on your mind?"
+// //         style={{ height: 200, padding: 10, backgroundColor: 'white' }}
+// //         value={postText}
+// //         onChangeText={setPostText}
+// //       />
+// //       <Button
+// //         title="Done"
+// //         onPress={() => {
+// //           // Pass params back to home screen
+// //           navigation.navigate('Home', { post: postText });
+// //         }}
+// //       />
+// //     </>
+// //   );
+// // }
+// //
+// //
 // function WeekScreen({ navigation }) {
 //   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <Text>Week tasks</Text>
-//       {/* <Button
-//         title="Go to Details... again"
-//         onPress={() => navigation.push("Details")}
-//       /> */}
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 //       <Button
-//         title="Go to Home"
-//         onPress={() => navigation.navigate("HomeScreen")}
+//         title="Go to Details"
+//         onPress={() => navigation.navigate("Details")}
 //       />
-//       <Button title="Go back" onPress={() => navigation.goBack()} />
-//       {/* <Button
-//         title="Go back to first screen in stack"
-//         onPress={() => navigation.popToTop()}
-//       /> */}
+//       <Text>Week</Text>
 //     </View>
+//   );
+// }
+// //==SCREENS==
+
+// //==STACK==
+// const DayStack = createStackNavigator();
+
+// function DayStackScreen() {
+//   return (
+//     <DayStack.Navigator>
+//       {/* <DayStack.Screen name="Day" component={DayScreen} /> */}
+//       <DayStack.Screen name="Day" component={DayScreen} />
+//       <DayStack.Screen name="Details" component={DetailsScreen} />
+//     </DayStack.Navigator>
+//   );
+// }
+
+// const WeekStack = createStackNavigator();
+
+// function WeekStackScreen() {
+//   return (
+//     <WeekStack.Navigator>
+//       <WeekStack.Screen name="Week" component={WeekScreen} />
+//       <WeekStack.Screen name="Details" component={DetailsScreen} />
+//     </WeekStack.Navigator>
+//   );
+// }
+// //==STACK==
+
+// //==TAB==
+// const Tab = createMaterialTopTabNavigator();
+
+// export default function App() {
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <NavigationContainer>
+//         <Tab.Navigator>
+//           {/* <Tab.Screen name="Today" component={DayScreen} />
+//           <Tab.Screen name="Tommorrow" component={DayScreen} />
+//           <Tab.Screen name="This week" component={WeekScreen} /> */}
+//           <Tab.Screen name="Today" component={DayStackScreen} />
+//           <Tab.Screen name="Tommorrow" component={DayStackScreen} />
+//           <Tab.Screen name="This week" component={WeekStackScreen} />
+//         </Tab.Navigator>
+//       </NavigationContainer>
+//     </SafeAreaView>
+//   );
+// }
+// //==TAB==
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+//     // alignItems: "center",
+//     // justifyContent: "center",
+//   },
+// });
+
+//==============================================================
+//==============================================================
+
+//==============================================================
+// import React, { useState } from "react";
+// import {
+//   Text,
+//   View,
+//   Button,
+//   StyleSheet,
+//   Platform,
+//   SafeAreaView,
+//   StatusBar,
+//   TextInput,
+// } from "react-native";
+
+// // import { Constants } from "expo";
+
+// // import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+// import { NavigationContainer } from "@react-navigation/native";
+// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+// import { createStackNavigator } from "@react-navigation/stack";
+
+// console.log("------------------------------------------------------------");
+// console.log(`Cute planner starting on ${Platform.OS}`);
+
+// const platformOS = Platform.OS.toLowerCase();
+
+// // function HomeScreen({ navigation, route }) {
+// //   React.useEffect(() => {
+// //     if (route.params?.post) {
+// //       // Post updated, do something with `route.params.post`
+// //       // For example, send the post to the server
+// //     }
+// //   }, [route.params?.post]);
+
+// //   return (
+// //     // <Stack.Navigator mode="modal">
+// //     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+// //       <Button
+// //         title="Create post"
+// //         onPress={() => navigation.navigate("CreatePost")}
+// //       />
+// //       <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
+// //     </View>
+// //     // </Stack.Navigator>
+// //   );
+// // }
+
+// // function CreatePostScreen({ navigation, route }) {
+// //   const [postText, setPostText] = React.useState("");
+
+// //   return (
+// //     <>
+// //       <TextInput
+// //         multiline
+// //         placeholder="What's on your mind?"
+// //         style={{ height: 200, padding: 10, backgroundColor: "white" }}
+// //         value={postText}
+// //         onChangeText={setPostText}
+// //       />
+// //       <Button
+// //         title="Done"
+// //         onPress={() => {
+// //           // Pass params back to home screen
+// //           navigation.navigate("Home", { post: postText });
+// //         }}
+// //       />
+// //     </>
+// //   );
+// // }
+
+// // const Stack = createStackNavigator();
+
+// // function HomeScreen() {
+// //   return (
+// //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+// //       <Text>Home!</Text>
+// //     </View>
+// //   );
+// // }
+
+// // function SettingsScreen() {
+// //   return (
+// //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+// //       <Text>Settings!</Text>
+// //     </View>
+// //   );
+// // }
+
+// // function NewTaskScreen() {
+// //   return (
+// //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+// //       <Text>Add task here now</Text>
+// //     </View>
+// //   );
+// // }
+// function DayScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Today and tommorow tasks here</Text>
+//     </View>
+//   );
+// }
+
+// function WeekScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Week</Text>
+//     </View>
+//   );
+// }
+
+// const Tab = createMaterialTopTabNavigator();
+
+// export default function App() {
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <NavigationContainer>
+//         <Tab.Navigator>
+//           {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
+//           {/* <Tab.Screen name="Add" component={NewTaskScreen} /> */}
+//           <Tab.Screen name="Today" component={DayScreen} />
+//           <Tab.Screen name="Tommorrow" component={DayScreen} />
+//           <Tab.Screen name="This week" component={WeekScreen} />
+//         </Tab.Navigator>
+//       </NavigationContainer>
+//     </SafeAreaView>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+//     // alignItems: "center",
+//     // justifyContent: "center",
+//   },
+// });
+
+// //==============================================================
+// import React, { useState } from "react";
+// import {
+//   Text,
+//   View,
+//   Button,
+//   StyleSheet,
+//   Platform,
+//   SafeAreaView,
+//   StatusBar,
+//   TextInput,
+// } from "react-native";
+
+// // import { Constants } from "expo";
+
+// // import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+// import { NavigationContainer } from "@react-navigation/native";
+// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+// import { createStackNavigator } from "@react-navigation/stack";
+
+// console.log("------------------------------------------------------------");
+// console.log(`Cute planner starting on ${Platform.OS}`);
+
+// const platformOS = Platform.OS.toLowerCase();
+
+// function HomeScreen({ navigation, route }) {
+//   React.useEffect(() => {
+//     if (route.params?.post) {
+//       // Post updated, do something with `route.params.post`
+//       // For example, send the post to the server
+//     }
+//   }, [route.params?.post]);
+
+//   return (
+//     // <Stack.Navigator mode="modal">
+//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+//       <Button
+//         title="Create post"
+//         onPress={() => navigation.navigate("CreatePost")}
+//       />
+//       <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
+//     </View>
+//     // </Stack.Navigator>
+//   );
+// }
+
+// function CreatePostScreen({ navigation, route }) {
+//   const [postText, setPostText] = React.useState("");
+
+//   return (
+//     <>
+//       <TextInput
+//         multiline
+//         placeholder="What's on your mind?"
+//         style={{ height: 200, padding: 10, backgroundColor: "white" }}
+//         value={postText}
+//         onChangeText={setPostText}
+//       />
+//       <Button
+//         title="Done"
+//         onPress={() => {
+//           // Pass params back to home screen
+//           navigation.navigate("Home", { post: postText });
+//         }}
+//       />
+//     </>
 //   );
 // }
 
 // const Stack = createStackNavigator();
 
-// function App() {
+// // function HomeScreen() {
+// //   return (
+// //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+// //       <Text>Home!</Text>
+// //     </View>
+// //   );
+// // }
+
+// function SettingsScreen() {
 //   return (
-//     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="Home">
-//         <Stack.Screen name="HomeScreen" component={HomeScreen} />
-//         {/* <Stack.Screen name="Details" component={DetailsScreen} /> */}
-//         <Stack.Screen name="NewTaskScreen" component={NewTaskScreen} />
-//         <Stack.Screen name="DayScreen" component={DayScreen} />
-//         <Stack.Screen name="WeekScreen" component={WeekScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Settings!</Text>
+//     </View>
 //   );
 // }
 
-// export default App;
+// function NewTaskScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Add task here now</Text>
+//     </View>
+//   );
+// }
+// function DayScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Today and tommorow tasks here</Text>
+//     </View>
+//   );
+// }
+
+// function WeekScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Week</Text>
+//     </View>
+//   );
+// }
+
+// const Tab = createMaterialTopTabNavigator();
+
+// export default function App() {
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <NavigationContainer>
+//         <Tab.Navigator>
+//           <Tab.Screen name="Home" component={HomeScreen} />
+//           <Tab.Screen name="Add" component={NewTaskScreen} />
+//           <Tab.Screen name="Today" component={DayScreen} />
+//           <Tab.Screen name="Tommorrow" component={DayScreen} />
+//           <Tab.Screen name="This week" component={WeekScreen} />
+//         </Tab.Navigator>
+//       </NavigationContainer>
+//     </SafeAreaView>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+//     // alignItems: "center",
+//     // justifyContent: "center",
+//   },
+// });
